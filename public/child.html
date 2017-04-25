@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	    <title>OpenFin Template</title>
+	    <meta name="description" content="">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+	    <div>
+	        <h1>Hello, From a Child window!</h1>
+	        <p>
+		        <button onclick="freezeParentApp()">Freeze the parent App</button>
+	        </p>
+	        <p>
+		        <button onclick="updateParent()">Update parent</button>
+	        </p>
+            <p>
+		        <button onclick="crash()">Crash</button>
+	        </p>
+	  </div>
+        <script src="js/child.js"></script>
+    </body>
+</html>

@@ -1,0 +1,96 @@
+/* Space out content a bit */
+body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color:#555555;
+    color: #A9A9A9;
+}
+
+/* Start Cube specific styles */
+.stage {
+
+    margin-top:15%;
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-perspective: 4000px;
+    -moz-perspective: 4000px;
+    -ms-perspective: 4000px;
+    -o-perspective: 4000px;
+    perspective: 4000px;
+
+    -webkit-perspective-origin: 50% 50%;
+    -moz-perspective-origin: 50% 50%;
+    -ms-perspective-origin: 50% 50%;
+    -o-perspective-origin: 50% 50%;
+    perspective-origin: 50% 50%;
+}
+.cube {
+    width: 400px;
+    height: 400px;
+    margin: auto;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+
+    -webkit-transition: -webkit-transform 0.3s linear;
+    -moz-transition: -moz-transform 0.3s linear;
+    -ms-transition: -ms-transform 0.3s linear;
+    -o-transition: -o-transform 0.3s linear;
+    transition: transform 0.3s linear;
+}
+/* Cube Sides  */
+.cube .side {
+    position: absolute;
+    top:0;
+    left: 0;
+    opacity: 0.9;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border: 5px black solid;
+}
+.cube .top {
+    -webkit-transform: rotateX(90deg) translateZ(200px);
+    -moz-transform: rotateX(90deg) translateZ(200px);
+    -ms-transform: rotateX(90deg) translateZ(200px);
+    -o-transform: rotateX(90deg) translateZ(200px);
+    transform: rotateX(90deg) translateZ(200px);
+}
+.cube .bottom {
+    -webkit-transform: rotateX(90deg) translateZ(-200px);
+    -moz-transform: rotateX(90deg) translateZ(-200px);
+    -ms-transform: rotateX(90deg) translateZ(-200px);
+    -o-transform: rotateX(90deg) translateZ(-200px);
+    transform: rotateX(90deg) translateZ(-200px);
+}
+.cube .left {
+    -webkit-transform: rotateY(90deg) translateZ(-200px);
+    -moz-transform: rotateY(90deg) translateZ(-200px);
+    -ms-transform: rotateY(90deg) translateZ(-200px);
+    -o-transform: rotateY(90deg) translateZ(-200px);
+    transform: rotateY(90deg) translateZ(-200px);
+}
+.cube .right {
+    -webkit-transform: rotateY(90deg) translateZ(200px);
+    -moz-transform: rotateY(90deg) translateZ(200px);
+    -ms-transform: rotateY(90deg) translateZ(200px);
+    -o-transform: rotateY(90deg) translateZ(200px);
+    transform: rotateY(90deg) translateZ(200px);
+}
+.cube .front {
+    -webkit-transform: translateZ(200px);
+    -moz-transform: translateZ(200px);
+    -ms-transform: translateZ(200px);
+    -o-transform: translateZ(200px);
+    transform: translateZ(200px);
+}
+.cube .back {
+    -webkit-transform: translateZ(-200px);
+    -moz-transform: translateZ(-200px);
+    -ms-transform: translateZ(-200px);
+    -o-transform: translateZ(-200px);
+    transform: translateZ(-200px);
+}
+/* End Cube specific styles */

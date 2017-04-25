@@ -15,21 +15,21 @@ const serverParams = {
 //Update our config and launch openfin.
 function launchOpenFin() {
     openfinConfigBuilder.update({
-	startup_app: {
+        startup_app: {
             url: target + '/index.html',
             applicationIcon: target + '/favicon.ico',
-	    saveWindowState: true
-	},
-	runtime: {
+            saveWindowState: true
+        },
+        runtime: {
             arguments: '--remote-debugging-port=9090 --v=1 --enable-logging --debug',
-            version: '6.49.19.17'
-	},
-	shortcut: {
+            version: '6.49.18.41'
+        },
+        shortcut: {
             icon: target + '/favicon.ico'
-	}
+        }
     }, configPath)
-	.then(openfinLauncher.launchOpenFin({ configPath: configPath }))
-	.catch(err => console.log(err));
+        .then(openfinLauncher.launchOpenFin({ configPath: configPath }))
+        .catch(err => console.log(err));
 }
 
 
@@ -44,12 +44,12 @@ liveServer.start(serverParams).on('listening', () => {
 readline.emitKeypressEvents(process.stdin);
 process.stdin.setRawMode(true);
 process.stdin.on('keypress', (str, key) => {
-   if (key.ctrl && key.name === 'c') {
-       process.exit();
-   } else if (key.name === 'enter') {
-       console.log('launching OpenFin');
-       launchOpenFin();
-   }
+    if (key.ctrl && key.name === 'c') {
+        process.exit();
+    } else if (key.name === 'enter') {
+        console.log('launching OpenFin');
+        launchOpenFin();
+    }
 });
 
 console.log('re-launch OpenFin by pressing the l key');
