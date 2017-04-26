@@ -13,14 +13,25 @@
 	        <h1>Hello, From a Child window!</h1>
 	        <p>
 		        <button onclick="freezeParentApp()">Freeze the parent App</button>
+                <pre><code class="javascript">alert('now we are frozen!');</code></pre>
 	        </p>
 	        <p>
 		        <button onclick="updateParent()">Update parent</button>
+                <pre><code class="javascript">window.opener.document.querySelector('#header-text').innerText = "From child";</code></pre>
 	        </p>
             <p>
 		        <button onclick="crash()">Crash</button>
+                <pre><code class="javascript">function crash() {
+    let txt = "a";
+    while(1){
+        txt = txt += "a";
+    }
+}</code></pre>
 	        </p>
 	  </div>
-        <script src="js/child.js"></script>
+      <script src="js/child.js"></script>
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/darcula.min.css">
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script>
     </body>
 </html>

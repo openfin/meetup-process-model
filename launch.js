@@ -36,7 +36,7 @@ function launchOpenFin() {
 //Start the server server and initially launch
 liveServer.start(serverParams).on('listening', () => {
     const { address, port } = liveServer.server.address();
-    target = `http://${ address }:${ port }`;
+    target = `http://localhost:${ port }`;
     launchOpenFin();
 });
 
@@ -46,11 +46,11 @@ process.stdin.setRawMode(true);
 process.stdin.on('keypress', (str, key) => {
     if (key.ctrl && key.name === 'c') {
         process.exit();
-    } else if (key.name === 'enter') {
+    } else if (key.ctrl && key.name === 'l') {
         console.log('launching OpenFin');
         launchOpenFin();
     }
 });
 
-console.log('re-launch OpenFin by pressing the l key');
+console.log('re-launch OpenFin by ctrl+l');
 console.log('exit by pressing ctr+c');

@@ -16,10 +16,28 @@
 		Current version: <span id="of-version"></span>
 	    </p>
 	    <p>
-		<button onclick="createChildWindow()">Create Child Window</button>
+		    <button onclick="createChildWindow()">Create Child Window</button>
+            <pre><code class="javascript">const win = new fin.desktop.Window({
+        name:`cwin_${Math.floor(Math.random() * 100)}`,
+        url: 'child.html',
+        autoShow: true,
+        saveWindowState: false
+    });</code></pre>
 	    </p>
 	    <p>
-		<button onclick="createApplication()">Create Application</button>
+		    <button onclick="createApplication()">Create Application</button>
+            <pre><code class="javascript">
+const uuid = `app_${Math.floor(Math.random() * 100)}`;
+const app = new fin.desktop.Application({
+    name: uuid,
+    uuid: uuid,
+    url: location.href,
+    autoShow: true,
+    saveWindowState: false
+}, () => {
+    app.run();
+});
+            </code></pre>
 	    </p>
 	    <div class="container">
 		<div class="stage">
@@ -36,5 +54,8 @@
 	</div>
 	<script src="js/cube.js"></script>
 	<script src="js/main.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/darcula.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
     </body>
 </html>
