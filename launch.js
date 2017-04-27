@@ -21,7 +21,7 @@ function launchOpenFin() {
             saveWindowState: true
         },
         runtime: {
-            arguments: '--remote-debugging-port=9090 --v=1 --enable-logging --debug',
+            arguments: `--js-flags=--expose_gc`,
             version: '6.49.18.41'
         },
         shortcut: {
