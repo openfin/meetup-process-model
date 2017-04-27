@@ -18,7 +18,9 @@
                     Working set size: <span id="working-set-size"></span>
                 </p>
 	            <p>
-		            <button onclick="createChildWindow()">Create Child Window</button>
+		            <button onclick="createChildWindow('child_a.html')">Create Child Window A</button>
+                    <button onclick="createChildWindow('child_b.html')">Create Child Window B</button>
+                    Child windows: <span id="child-window-num"></span>
                     <pre><code class="javascript">const win = new fin.desktop.Window({
         name:`cwin_${Math.floor(Math.random() * 100)}`,
         url: 'child.html',
@@ -27,7 +29,7 @@
     });</code></pre>
 	            </p>
 	            <p>
-		            <button onclick="createApplication()">Create Application</button>
+		            <button onclick="createApplication()">Create Application</button> Applications: <span id="application-num"></span>
                     <pre><code class="javascript">
 const uuid = `app_${Math.floor(Math.random() * 100)}`;
 const app = new fin.desktop.Application({

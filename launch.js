@@ -21,7 +21,7 @@ function launchOpenFin() {
             saveWindowState: true
         },
         runtime: {
-            arguments: `--js-flags=--expose_gc`,
+            arguments: `--js-flags=--expose_gc --enable-precise-memory-info`,
             version: '6.49.18.41'
         },
         shortcut: {

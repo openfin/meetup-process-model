@@ -1,7 +1,7 @@
-function createChildWindow() {
+function createChildWindow(url) {
     const win = new fin.desktop.Window({
         name:`cwin_${Math.floor(Math.random() * 100)}`,
-        url: 'child_a.html',
+        url,
         autoShow: true,
         saveWindowState: false
     });
@@ -21,25 +21,64 @@ function createApplication() {
 }
 
 function updateMemStats(info) {
-    let bytes = (info.workingSetSize/1048576).toFixed(2)+' MB';
+    console.log(info);
+    let bytes = (info.usedJSHeapSize/1048576).toFixed(2)+' MB';
     document.querySelector('#working-set-size').innerText = bytes;
+}
+
+function updateChildWindows(num) {
+
 }
 
 //event listeners.
 document.addEventListener('DOMContentLoaded', function() {
     const ofVersion = document.querySelector('#of-version');
     const cubeElem = document.querySelector('.cube');
+    const childWindowNumElem = document.querySelector('#child-window-num');
+    const applicationNumElem = document.querySelector('#application-num');
     const cube = new Cube(cubeElem);
     const memorTracker = new MemoryTracker(updateMemStats);
+
+    let childWindows = 0;
+    let applications = 1;
 
     cube.animateTheCube();
 
     if (typeof fin != 'undefined') {
+
         const currentApp = fin.desktop.Application.getCurrent();
         fin.desktop.System.getVersion(function(version) {
             ofVersion.innerText = version;
         });
         fin.desktop.System.showDeveloperTools(currentApp.uuid, currentApp.name || currentApp.uuid);
+
+        currentApp.addEventListener('window-created', () => {
+            childWindows++;
+            childWindowNumElem.innerText = childWindows;
+        });
+
+        currentApp.addEventListener('window-closed', () => {
+            childWindows--;
+            childWindowNumElem.innerText = childWindows;
+        });
+
+        fin.desktop.System.addEventListener('application-created', () => {
+            console.log('created brah');
+            applications++;
+            applicationNumElem.innerText = applications;
+        });
+
+        fin.desktop.System.addEventListener('application-closed', () => {
+            applications--;
+            applicationNumElem.innerText = applications;
+        });
+
+        fin.desktop.System.getAllApplications(apps => {
+            applications = apps.length;
+            applicationNumElem.innerText = applications;
+        });
+
+
     } else {
         ofVersion.innerText = 'OpenFin is not available - you are probably running in a browser.';
     }
