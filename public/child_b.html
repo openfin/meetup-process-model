@@ -16,8 +16,25 @@
                 <pre><code class="javascript">alert('now we are frozen!');</code></pre>
 	        </p>
 	        <p>
-		        <button onclick="alocateMemory()">Update parent</button>
-                <pre><code class="javascript">window.opener.document.querySelector('#header-text').innerText = "From child";</code></pre>
+		        <button onclick="findPrime()">Find primes</button>
+                <pre><code class="javascript">
+let primes = [];
+for (let i = 0; i < iterations; i++) {
+    let candidate = i * (multiplier * Math.random());
+    let isPrime = true;
+    for (var c = 2; c <= Math.sqrt(candidate); ++c) {
+        if (candidate % c === 0) {
+            // not prime
+            isPrime = false;
+            break;
+         }
+    }
+    if (isPrime) {
+        primes.push(candidate);
+    }
+}
+return primes;
+                </code></pre>
 	        </p>
             <p>
 		        <button onclick="crash()">Crash</button>

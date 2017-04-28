@@ -11,17 +11,8 @@ function alocateMemory() {
 }
 
 function findPrime() {
-    primeFinder.run();
+    doPointlessComputationsWithBlocking();
 }
-
-function stopPrime() {
-    primeFinder.stop();
-}
-
-let primeFinder = new PrimeFinder(p => {
-    console.log(p);
-});
 
 document.addEventListener('DOMContentLoaded', () => {
-
 });

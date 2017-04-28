@@ -1,3 +1,5 @@
+let myWorker;
+
 function createChildWindow(url) {
     const win = new fin.desktop.Window({
         name:`cwin_${Math.floor(Math.random() * 100)}`,
@@ -26,8 +28,8 @@ function updateMemStats(info) {
     document.querySelector('#working-set-size').innerText = bytes;
 }
 
-function updateChildWindows(num) {
-
+function loadPrimesFromWorker() {
+    myWorker.postMessage(['a', 'b', 'c']);
 }
 
 //event listeners.
@@ -86,13 +88,10 @@ document.addEventListener('DOMContentLoaded', function() {
     //we want child windows to have access to the Cube object, a simple way is to make it global.
     window.Cube = Cube;
 
-    const myWorker = new Worker('js/simple-worker.js');
+    myWorker = new Worker('js/simple-worker.js');
 
     myWorker.onmessage = function(e) {
         console.log('here is the response');
         console.log(e);
     };
-
-    myWorker.postMessage(['a', 'b', 'c']);
-    console.log('posed to the worker');
 });
