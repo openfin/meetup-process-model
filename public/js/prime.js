@@ -1,6 +1,6 @@
 //Code from MDN
 //https://developer.mozilla.org/en-US/docs/Tools/Performance/Scenarios/Intensive_JavaScript
-const iterations = 50;
+const iterations = 500;
 const multiplier = 1000000000;
 
 function calculatePrimes(iterations, multiplier) {

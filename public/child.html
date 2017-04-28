@@ -10,28 +10,95 @@
     </head>
     <body>
 	    <div>
-	        <h1>Hello, From a Child window!</h1>
+            <p>
+		        <button onclick="cloneCube()">Clone the cube.</button>
+                <pre><code class="javascript">
+const parentWindow = window.opener.window;
+const stage = parentWindow.document.querySelector('.stage');
+const container = document.querySelector('.container');
+
+container.innerHTML = stage.outerHTML;</code></pre>
+	        </p>
+
 	        <p>
+		        <button onclick="animateCube()">Animate</button>
+                <pre><code class="javascript">
+const parentWindow = window.opener.window;
+const cubeElem = document.querySelector('.cube');
+const cube = new parentWindow.Cube(cubeElem);
+
+cube.animateTheCube();
+                </code></pre>
+	        </p>
+
+            <div class="container"></div>
+
+            <p>
+		        <button onclick="findPrime()">Find primes blocking</button>
+                <pre><code class="javascript">
+let primes = [];
+for (let i = 0; i < iterations; i++) {
+    let candidate = i * (multiplier * Math.random());
+    let isPrime = true;
+    for (var c = 2; c <= Math.sqrt(candidate); ++c) {
+        if (candidate % c === 0) {
+            // not prime
+            isPrime = false;
+            break;
+         }
+    }
+    if (isPrime) {
+        primes.push(candidate);
+    }
+}
+return primes;
+                </code></pre>
+	        </p>
+
+            <p>
+		        <button onclick="findPrime()">Find primes</button>
+                <pre><code class="javascript">
+let primes = [];
+for (let i = 0; i < iterations; i++) {
+    let candidate = i * (multiplier * Math.random());
+    let isPrime = true;
+    for (var c = 2; c <= Math.sqrt(candidate); ++c) {
+        if (candidate % c === 0) {
+            // not prime
+            isPrime = false;
+            break;
+         }
+    }
+    if (isPrime) {
+        primes.push(candidate);
+    }
+}
+return primes;
+                </code></pre>
+	        </p>
+
+            <p>
 		        <button onclick="freezeParentApp()">Freeze the parent App</button>
                 <pre><code class="javascript">alert('now we are frozen!');</code></pre>
 	        </p>
-	        <p>
-		        <button onclick="updateParent()">Update parent</button>
-                <pre><code class="javascript">window.opener.document.querySelector('#header-text').innerText = "From child";</code></pre>
-	        </p>
+
             <p>
 		        <button onclick="crash()">Crash</button>
-                <pre><code class="javascript">function crash() {
+                <pre><code class="javascript">
+function crash() {
     let txt = "a";
     while(1){
         txt = txt += "a";
     }
 }</code></pre>
-	        </p>
-	  </div>
-      <script src="js/child.js"></script>
-      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/darcula.min.css">
-      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
-      <script>hljs.initHighlightingOnLoad();</script>
+	       </p>
+	    </div>
+
+        <script src="js/prime.js"></script>
+        <script src="js/child.js"></script>
+
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/darcula.min.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
     </body>
 </html>
