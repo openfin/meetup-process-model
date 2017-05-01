@@ -1,4 +1,4 @@
-let myWorker;
+const sWorker = new SharedWorker('js/sharedworker.js');
 
 function createChildWindow(url) {
     const win = new fin.desktop.Window({
@@ -23,14 +23,21 @@ function createApplication() {
 }
 
 function updateMemStats(info) {
-    console.log(info);
     let bytes = (info.usedJSHeapSize/1048576).toFixed(2)+' MB';
     document.querySelector('#working-set-size').innerText = bytes;
 }
 
-function loadPrimesFromWorker() {
-    myWorker.postMessage(['a', 'b', 'c']);
-}
+window.addEventListener('message', e => {
+    if (e.origin === location.origin) {
+        document.querySelector('#primes-num').innerText = e.data;
+    }
+});
+
+sWorker.port.start();
+
+sWorker.port.onmessage = function(e) {
+    document.querySelector('#shared-data').innerText = e.data;
+};
 
 //event listeners.
 document.addEventListener('DOMContentLoaded', function() {
@@ -65,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         fin.desktop.System.addEventListener('application-created', () => {
-            console.log('created brah');
             applications++;
             applicationNumElem.innerText = applications;
         });
@@ -76,10 +82,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         fin.desktop.System.getAllApplications(apps => {
-            applications = apps.length;
+            applications = apps.filter(app => app.isRunning).length;
             applicationNumElem.innerText = applications;
         });
-
 
     } else {
         ofVersion.innerText = 'OpenFin is not available - you are probably running in a browser.';
@@ -87,11 +92,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //we want child windows to have access to the Cube object, a simple way is to make it global.
     window.Cube = Cube;
-
-    myWorker = new Worker('js/simple-worker.js');
-
-    myWorker.onmessage = function(e) {
-        console.log('here is the response');
-        console.log(e);
-    };
 });

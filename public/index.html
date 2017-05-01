@@ -14,12 +14,17 @@
                 <p id="version-number-container">
 		            Current version: <span id="of-version"></span>
 	            </p>
+                <p id="primes-number-container">
+		            Primes Found <span id="primes-num"></span>
+	            </p>
+                <p id="shared-worker-data">
+		            From the child window: <span id="shared-data"></span>
+	            </p>
                 <p>
                     Working set size: <span id="working-set-size"></span>
                 </p>
 	            <p>
 		            <button onclick="createChildWindow('child.html')">Create Child Window</button>
-                    <button onclick="createChildWindow('child_b.html')">Create Child Window B</button>
                     Child windows: <span id="child-window-num"></span>
                     <pre><code class="javascript">const win = new fin.desktop.Window({
         name:`cwin_${Math.floor(Math.random() * 100)}`,

@@ -22,6 +22,7 @@ container.innerHTML = stage.outerHTML;</code></pre>
 
 	        <p>
 		        <button onclick="animateCube()">Animate</button>
+                <button onclick="stopCube()">Stop</button>
                 <pre><code class="javascript">
 const parentWindow = window.opener.window;
 const cubeElem = document.querySelector('.cube');
@@ -34,9 +35,9 @@ cube.animateTheCube();
             <div class="container"></div>
 
             <p>
-		        <button onclick="findPrime()">Find primes blocking</button>
+		        <button onclick="findPrime()">Find primes blocking</button> Primes Found <span id="primes-blocking"></span>
                 <pre><code class="javascript">
-let primes = [];
+let primes = new Int32Array(iterations);
 for (let i = 0; i < iterations; i++) {
     let candidate = i * (multiplier * Math.random());
     let isPrime = true;
@@ -45,10 +46,10 @@ for (let i = 0; i < iterations; i++) {
             // not prime
             isPrime = false;
             break;
-         }
+        }
     }
     if (isPrime) {
-        primes.push(candidate);
+        primes[i] = candidate;
     }
 }
 return primes;
@@ -56,24 +57,20 @@ return primes;
 	        </p>
 
             <p>
-		        <button onclick="findPrime()">Find primes</button>
+		        <button onclick="findPrimeWebWorker()">Find primes</button> Primes Found <span id="primes-webworker"></span>
                 <pre><code class="javascript">
-let primes = [];
-for (let i = 0; i < iterations; i++) {
-    let candidate = i * (multiplier * Math.random());
-    let isPrime = true;
-    for (var c = 2; c <= Math.sqrt(candidate); ++c) {
-        if (candidate % c === 0) {
-            // not prime
-            isPrime = false;
-            break;
-         }
-    }
-    if (isPrime) {
-        primes.push(candidate);
-    }
+const myWorker = new Worker('js/webworker.js');
+//Window:
+myWorker.onmessage = function(e) {
+    const view = new Int32Array(e.data);
+    const primes = view.filter(i => i != 0);
 }
-return primes;
+
+//Web Worker:
+const resultBuffer = doPointlessComputationsWithBlocking().buffer;
+//https://developer.mozilla.org/en-US/docs/Web/API/Transferable
+postMessage(resultBuffer, [resultBuffer]);
+
                 </code></pre>
 	        </p>
 
@@ -91,7 +88,40 @@ function crash() {
         txt = txt += "a";
     }
 }</code></pre>
-	       </p>
+	        </p>
+
+            <p>
+		        <button onclick="shareData()">Share Data</button>
+                <pre><code class="javascript">
+//shared worker:
+const peers = [];
+
+self.addEventListener("connect", function (e) {
+
+	var port = e.ports[0];
+
+    peers.push(port);
+
+	port.addEventListener("message", function (e) {
+
+        peers.forEach(p => {
+            p.postMessage(e.data);
+        });
+	}, false);
+
+	port.start();
+
+}, false);
+
+//producer:
+sWorker.port.postMessage(data);
+
+//consumer:
+sWorker.port.onmessage = function(e) {
+    document.querySelector('#shared-data').innerText = e.data;
+}
+</code></pre>
+	        </p>
 	    </div>
 
         <script src="js/prime.js"></script>

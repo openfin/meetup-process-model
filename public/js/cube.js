@@ -17,6 +17,8 @@ class Cube {
             y: "Y"
         };
 
+        this.running = false;
+
         this.cube = cube;
 
         this.animationLoop();
@@ -25,6 +27,10 @@ class Cube {
     increaseAxis(axis) {
         this.cubeModel[axis] += this.rateOfChange;
     };
+
+    stop() {
+        this.running = false;
+    }
 
     animationLoop() {
         requestAnimationFrame(() => {
@@ -41,11 +47,14 @@ class Cube {
     };
 
     animateTheCube() {
+        this.running = true;
         requestAnimationFrame(() => {
             this.increaseAxis(this.axises.x);
             this.increaseAxis(this.axises.y);
             setTimeout(() => {
-                this.animateTheCube();
+                if (this.running) {
+                    this.animateTheCube();
+                }
             }, 300);
         });
     };

@@ -22,7 +22,7 @@ function launchOpenFin() {
         },
         runtime: {
             arguments: `--js-flags=--expose_gc --enable-precise-memory-info`,
-            version: '6.49.18.41'
+            version: '7.53.19.8'
         },
         shortcut: {
             icon: target + '/favicon.ico'
