@@ -1,7 +1,7 @@
 //convert degrees to string.
 function toDegString(axis, degrees) {
     return 'rotate' + axis + '(' + (degrees) + 'deg) ';
-};
+}
 
 class Cube {
     constructor(cube) {
@@ -30,12 +30,12 @@ class Cube {
 
     stop() {
         this.running = false;
-    }
+    };
 
     animationLoop() {
         requestAnimationFrame(() => {
             //Update the cube
-            this.cube.style['transform'] = toDegString(this.axises.x, this.cubeModel.X) +
+            this.cube.style.transform = toDegString(this.axises.x, this.cubeModel.X) +
                 toDegString(this.axises.y, this.cubeModel.Y);
             //keep the loop alive.
             this.animationLoop();

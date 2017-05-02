@@ -20,7 +20,7 @@ function cloneCube() {
     const container = document.querySelector('.container');
 
     container.innerHTML = stage.outerHTML;
-};
+}
 
 function animateCube() {
     const parentWindow = window.opener.window;
@@ -51,7 +51,7 @@ function findPrimeWebWorker() {
     myWorker.onmessage = function(e) {
         const endTime = Date.now();
         const view = new Int32Array(e.data);
-        const primes = view.filter(i => i != 0);
+        const primes = view.filter(i => i !== 0);
         const primesIn = `${ primes.length } in ${ endTime - startTime }ms`;
         window.opener.window.postMessage(primesIn, location.origin);
     };
@@ -67,5 +67,5 @@ function shareData() {
 
 myWorker.onmessage = function(e) {
     const view = new Int32Array(e.data);
-    const primes = view.filter(i => i != 0);
+    const primes = view.filter(i => i !== 0);
 };

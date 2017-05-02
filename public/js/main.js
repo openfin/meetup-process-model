@@ -33,8 +33,6 @@ window.addEventListener('message', e => {
     }
 });
 
-sWorker.port.start();
-
 sWorker.port.onmessage = function(e) {
     document.querySelector('#shared-data').innerText = e.data;
 };
@@ -48,42 +46,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const cube = new Cube(cubeElem);
     const memorTracker = new MemoryTracker(updateMemStats);
 
-    let childWindows = 0;
-    let applications = 1;
-
     cube.animateTheCube();
+    sWorker.port.start();
 
     if (typeof fin != 'undefined') {
-
-        const currentApp = fin.desktop.Application.getCurrent();
         fin.desktop.System.getVersion(function(version) {
             ofVersion.innerText = version;
-        });
-        fin.desktop.System.showDeveloperTools(currentApp.uuid, currentApp.name || currentApp.uuid);
-
-        currentApp.addEventListener('window-created', () => {
-            childWindows++;
-            childWindowNumElem.innerText = childWindows;
-        });
-
-        currentApp.addEventListener('window-closed', () => {
-            childWindows--;
-            childWindowNumElem.innerText = childWindows;
-        });
-
-        fin.desktop.System.addEventListener('application-created', () => {
-            applications++;
-            applicationNumElem.innerText = applications;
-        });
-
-        fin.desktop.System.addEventListener('application-closed', () => {
-            applications--;
-            applicationNumElem.innerText = applications;
-        });
-
-        fin.desktop.System.getAllApplications(apps => {
-            applications = apps.filter(app => app.isRunning).length;
-            applicationNumElem.innerText = applications;
         });
 
     } else {

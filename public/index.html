@@ -11,30 +11,36 @@
     <body>
 	    <div>
             <div>
+
                 <p id="version-number-container">
 		            Current version: <span id="of-version"></span>
 	            </p>
+
                 <p id="primes-number-container">
 		            Primes Found <span id="primes-num"></span>
 	            </p>
+
                 <p id="shared-worker-data">
 		            From the child window: <span id="shared-data"></span>
 	            </p>
+
                 <p>
                     Working set size: <span id="working-set-size"></span>
                 </p>
+
 	            <p>
-		            <button onclick="createChildWindow('child.html')">Create Child Window</button>
-                    Child windows: <span id="child-window-num"></span>
+                    <h3>Create a new Application</h3>
                     <pre><code class="javascript">const win = new fin.desktop.Window({
         name:`cwin_${Math.floor(Math.random() * 100)}`,
         url: 'child.html',
         autoShow: true,
         saveWindowState: false
     });</code></pre>
+                    <button onclick="createChildWindow('child.html')">new Window</button>
 	            </p>
+
 	            <p>
-		            <button onclick="createApplication()">Create Application</button> Applications: <span id="application-num"></span>
+                    <h3>Create a new Application</h3>
                     <pre><code class="javascript">
 const uuid = `app_${Math.floor(Math.random() * 100)}`;
 const app = new fin.desktop.Application({
@@ -47,6 +53,7 @@ const app = new fin.desktop.Application({
     app.run();
 });
                     </code></pre>
+                    <button onclick="createApplication()">new Application</button>
 	            </p>
             </div>
 
