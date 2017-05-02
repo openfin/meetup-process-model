@@ -3,10 +3,6 @@ const sWorker = new SharedWorker('js/sharedworker.js');
 
 let cube;
 
-function freezeParentApp() {
-    alert('now we are frozen!');
-}
-
 function crash() {
     let txt = "a";
     while(1){
