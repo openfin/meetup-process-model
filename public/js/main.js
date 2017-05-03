@@ -33,9 +33,9 @@ window.addEventListener('message', e => {
     }
 });
 
-sWorker.port.onmessage = function(e) {
+sWorker.port.addEventListener('message', e => {
     document.querySelector('#shared-data').innerText = e.data;
-};
+});
 
 //event listeners.
 document.addEventListener('DOMContentLoaded', function() {

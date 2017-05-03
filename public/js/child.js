@@ -2,11 +2,12 @@ const myWorker = new Worker('js/webworker.js');
 const sWorker = new SharedWorker('js/sharedworker.js');
 
 let cube;
+let startTime;
 
 function crash() {
-    let txt = "a";
+    let txt = 'a';
     while(1){
-        txt = txt += "a";
+        txt = txt += 'a';
     }
 }
 
@@ -30,38 +31,32 @@ function stopCube() {
     cube.stop();
 }
 
-function freezeParentApp() {
-    alert('now we are frozen!');
-}
 
 function findPrime() {
-    const startTime = Date.now();
+    startTime = Date.now();
     const primes = doPointlessComputationsWithBlocking().filter(i => i !== 0);
     const endTime = Date.now();
-    const primesIn = `${ primes.length } in ${ endTime - startTime }ms`;
-    window.opener.window.postMessage(primesIn, location.origin);
+    window.opener.window.postMessage(getFoundInString(primes), location.origin);
 }
 
 function findPrimeWebWorker() {
-    const startTime = Date.now();
-    myWorker.onmessage = function(e) {
-        const endTime = Date.now();
-        const view = new Int32Array(e.data);
-        const primes = view.filter(i => i !== 0);
-        const primesIn = `${ primes.length } in ${ endTime - startTime }ms`;
-        window.opener.window.postMessage(primesIn, location.origin);
-    };
-
-    myWorker.postMessage(['a', 'b', 'c']);
+    startTime = Date.now();
+    myWorker.postMessage('');
 }
 
 function shareData() {
-    const startTime = Date.now();
+    startTime = Date.now();
     sWorker.port.postMessage(startTime);
 }
 
+function getFoundInString(primes) {
+    const endTime = Date.now();
+    return `${ primes.length } in ${ endTime - startTime }ms`;
+}
 
-myWorker.onmessage = function(e) {
+myWorker.addEventListener('message', e => {
     const view = new Int32Array(e.data);
     const primes = view.filter(i => i !== 0);
-};
+
+    window.opener.window.postMessage(getFoundInString(primes), location.origin);
+});

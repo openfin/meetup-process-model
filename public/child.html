@@ -3,7 +3,7 @@
     <head>
 	    <meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	    <title>OpenFin Template</title>
+	    <title>OpenFin Multi window child</title>
 	    <meta name="description" content="">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <link rel="stylesheet" href="main.css">
@@ -40,7 +40,7 @@ cube.animateTheCube();
 
                 <h3>Block the main thread</h3>
                 <pre><code class="javascript">
-let primes = new Int32Array(iterations);
+const primes = new Int32Array(iterations);
 for (let i = 0; i < iterations; i++) {
     let candidate = i * (multiplier * Math.random());
     let isPrime = true;
@@ -63,17 +63,19 @@ return primes;
             <p>
                 <h3>Use Web Worker</h3>
                 <pre><code class="javascript">
-const myWorker = new Worker('js/webworker.js');
-//Window:
-myWorker.onmessage = function(e) {
-    const view = new Int32Array(e.data);
-    const primes = view.filter(i => i != 0);
-}
-
 //Web Worker:
+importScripts('prime.js');
 const resultBuffer = doPointlessComputationsWithBlocking().buffer;
 //https://developer.mozilla.org/en-US/docs/Web/API/Transferable
 postMessage(resultBuffer, [resultBuffer]);
+
+//Window:
+const myWorker = new Worker('js/webworker.js');
+myWorker.addEventListener('message', e => {
+    const view = new Int32Array(e.data);
+    const primes = view.filter(i => i !== 0);
+}
+
 
                 </code></pre>
                 <button onclick="findPrimeWebWorker()">Find primes</button>
@@ -83,9 +85,9 @@ postMessage(resultBuffer, [resultBuffer]);
                 <h3>Crash the Renderer</h3>
                 <pre><code class="javascript">
 function crash() {
-    let txt = "a";
+    let txt = 'a';
     while(1){
-        txt = txt += "a";
+        txt = txt += 'a';
     }
 }</code></pre>
            <button onclick="crash()">Crash</button>
@@ -98,10 +100,10 @@ function crash() {
 //shared worker:
 const peers = [];
 
-self.addEventListener("connect", function (e) {
+self.addEventListener('connect', function (e) {
     const port = e.ports[0];
     peers.push(port);
-    port.addEventListener("message", function (e) {
+    port.addEventListener('message', function (e) {
         peers.forEach(p => {
             p.postMessage(e.data);
         });
@@ -113,9 +115,9 @@ self.addEventListener("connect", function (e) {
 sWorker.port.postMessage(data);
 
 //consumer:
-sWorker.port.onmessage = function(e) {
+sWorker.port.addEventListener('message', e => {
     document.querySelector('#shared-data').innerText = e.data;
-}
+});
                 </code></pre>
                 <button onclick="shareData()">Share Data</button>
 	        </p>
