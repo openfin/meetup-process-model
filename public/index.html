@@ -1,40 +1,44 @@
 <!DOCTYPE html>
 <html>
-    <head>
+
+<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>OpenFin Multi Window App</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="main.css">
-    </head>
-    <body>
+</head>
+
+<body>
 	<div>
-            <div>
+		<div>
 
-                <p id="version-number-container">
-		    <b>Current version:</b> <span id="of-version"></span>
-	        </p>
+			<p id="version-number-container">
+				<b>Current version:</b>
+				<span id="of-version"></span>
+			</p>
 
-                <p>
-                    <b>Working set size:</b> <span id="working-set-size"></span>
-                </p>
+			<p>
+				<b>Working set size:</b>
+				<span id="working-set-size"></span>
+			</p>
 
-	        <p>
+			<p>
 
-                    <h3>Create a new Window</h3>
-                    <pre><code class="javascript">const win = new fin.desktop.Window({
+				<h3>Create a new Window</h3>
+				<pre><code class="javascript">const win = new fin.desktop.Window({
         name:`cwin_${Math.floor(Math.random() * 100)}`,
         url: 'child.html',
         autoShow: true,
         saveWindowState: false
     });</code></pre>
-                    <button onclick="createChildWindow('child.html')">new Window</button>
-	        </p>
+				<button onclick="createChildWindow('child.html')">new Window</button>
+			</p>
 
-	        <p>
-                    <h3>Create a new Application</h3>
-                    <pre><code class="javascript">
+			<p>
+				<h3>Create a new Application</h3>
+				<pre><code class="javascript">
 const uuid = `app_${Math.floor(Math.random() * 100)}`;
 const app = new fin.desktop.Application({
     name: uuid,
@@ -46,30 +50,34 @@ const app = new fin.desktop.Application({
     app.run();
 });
                     </code></pre>
-                    <button onclick="createApplication()">new Application</button>
-	        </p>
+				<button onclick="createApplication()">new Application</button>
+			</p>
+			<h3>Service Worker</h3>
+			<p>This demo makes use of a service worker in order to show how to handle offline functionality in OpenFin.</p>
+			<p>After the application has loaded, go to the console and kill the web server with Ctrl+C, then afterwards you can continue to create a new window and new application.</p>
+			<p id="primes-number-container">
+				<b>Primes Found:</b>
+				<span id="primes-num"></span>
+			</p>
 
-		<p id="primes-number-container">
-		    <b>Primes Found:</b> <span id="primes-num"></span>
-	        </p>
-
-                <p id="shared-worker-data">
-		    <b>Shared Data:</b> <span id="shared-data"></span>
-	        </p>
-            </div>
-
-	    <div class="container">
-		<div class="stage">
-		    <div class="invert cube">
-			<div class="side top"></div>
-			<div class="side right"></div>
-			<div class="side bottom"></div>
-			<div class="side left"></div>
-			<div class="side front"></div>
-			<div class="side back"></div>
-		    </div>
+			<p id="shared-worker-data">
+				<b>Shared Data:</b>
+				<span id="shared-data"></span>
+			</p>
 		</div>
-	    </div>
+
+		<div class="container">
+			<div class="stage">
+				<div class="invert cube">
+					<div class="side top"></div>
+					<div class="side right"></div>
+					<div class="side bottom"></div>
+					<div class="side left"></div>
+					<div class="side front"></div>
+					<div class="side back"></div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<script src="js/cube.js"></script>
 	<script src="js/memory.js"></script>
@@ -77,5 +85,6 @@ const app = new fin.desktop.Application({
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/github.min.css">
 	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
-    </body>
+</body>
+
 </html>

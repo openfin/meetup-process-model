@@ -37,6 +37,9 @@ sWorker.port.addEventListener('message', e => {
     document.querySelector('#shared-data').innerText = e.data;
 });
 
+//register Service Worker
+navigator.serviceWorker.register("../serviceworker.js");
+
 //event listeners.
 document.addEventListener('DOMContentLoaded', function() {
     const ofVersion = document.querySelector('#of-version');
