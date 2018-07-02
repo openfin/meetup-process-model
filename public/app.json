@@ -1,4 +1,5 @@
 {
+    "devtools_port": 9090,
     "startup_app": {
         "name": "OpenfinPOC",
         "url": "http://localhost:8080/index.html",
@@ -9,7 +10,7 @@
     },
     "runtime": {
         "arguments": "--js-flags=--expose_gc --enable-precise-memory-info",
-        "version": "8.56.27.75"
+        "version": "alpha"
     },
     "shortcut": {
         "company": "OpenFin",
